@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DRIVOO – Autovermietung Schweiz</title>
+<meta name="description" content="DRIVOO Mobility AG, Basel – Mietwagen in der Schweiz ab CHF 50 pro Tag, mit Lieferung, Flughafen-Transfer, Zusatzversicherung und Zubehör. SUV, Cabrio, Van, Kleinwagen, Kombi, Luxus und Sportwagen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030403; --panel:#0c0f0b; --line:#202819; --lime:#b8f21a; --text:#f4f6f1; --mute:#9aa493;
+  --font:"Lexend","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --glow:drop-shadow(0 0 .12em rgba(184,242,26,.85)) drop-shadow(0 0 .4em rgba(184,242,26,.45));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-weight:300;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+
+/* Logo */
+.logo{display:inline-flex;align-items:center;font-weight:500;letter-spacing:.04em;line-height:1;color:var(--text)}
+.oo{height:.74em;width:1.48em;margin-left:.06em;overflow:visible;filter:var(--glow)}
+.oo circle{fill:none;stroke:var(--lime);stroke-width:8}
+
+/* Header */
+header{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px clamp(16px,4vw,48px);background:linear-gradient(#030403 45%,rgba(3,4,3,0))}
+header .logo{font-size:1.35rem}
+.right{display:flex;align-items:center;gap:clamp(12px,3vw,32px)}
+.menu{display:flex;gap:clamp(12px,3vw,28px);font-size:.9rem}
+.menu a{color:var(--mute);transition:color .2s}
+.menu a:hover,.menu a[aria-current]{color:var(--text)}
+.menu a[aria-current]{box-shadow:0 2px 0 var(--lime)}
+
+/* Language dropdown */
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:7px;font:inherit;font-size:.82rem;font-weight:400;color:var(--text);background:rgba(12,15,11,.85);border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer;backdrop-filter:blur(8px);transition:border-color .2s}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{border-color:var(--lime)}
+.lang-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.lang-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:160px;list-style:none;padding:6px;background:#0a0d09;border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.lang-menu[hidden]{display:none}
+.lang-menu button{display:flex;justify-content:space-between;width:100%;font:inherit;font-size:.9rem;color:var(--mute);background:none;border:0;padding:9px 12px;border-radius:9px;cursor:pointer;text-align:left}
+.lang-menu button:hover{background:#151b11;color:var(--text)}
+.lang-menu button[aria-selected="true"]{color:var(--lime)}
+.lang-menu small{opacity:.6}
+
+/* Hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:110px 20px 70px;position:relative}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 72% 38%,rgba(184,242,26,.12),transparent 70%);pointer-events:none}
+.hero .logo{font-size:clamp(3rem,12vw,8.5rem);position:relative}
+/* Intro: headlights switch on, then the OO keeps breathing slowly */
+.hero .oo{transform-origin:50% 50%;animation:ignite 1.4s .15s ease-out both,swell 1.7s .85s cubic-bezier(.3,0,.2,1) both,breathe 3.2s 2.6s ease-in-out infinite}
+@keyframes swell{
+  0%{transform:scale(1)}
+  62%{transform:scale(1.22);filter:drop-shadow(0 0 .22em #d8ff6a) drop-shadow(0 0 .7em rgba(184,242,26,.9)) drop-shadow(0 0 1.4em rgba(184,242,26,.55))}
+  74%{transform:scale(1.18)}
+  100%{transform:scale(1)}
+}
+@keyframes ignite{0%{opacity:.1}18%{opacity:1}30%{opacity:.25}45%,100%{opacity:1}}
+@keyframes breathe{
+  0%,100%{opacity:1;filter:var(--glow)}
+  50%{opacity:.5;filter:drop-shadow(0 0 .04em rgba(184,242,26,.35)) drop-shadow(0 0 .14em rgba(184,242,26,.15))}
+}
+.claim{margin-top:1.4rem;font-size:clamp(.8rem,2vw,1rem);letter-spacing:.7em;color:var(--mute);padding-left:.7em}
+h1{margin-top:2.6rem;font-size:clamp(1.5rem,4vw,2.6rem);font-weight:400;line-height:1.25}
+h1 em{font-style:normal;color:var(--lime)}
+.sub{margin-top:1rem;max-width:34rem;color:var(--mute);font-size:1.02rem}
+.price{display:inline-block;margin-top:1.4rem;padding:8px 18px;border:1px solid var(--lime);border-radius:999px;color:var(--lime);font-weight:400;font-size:.95rem;box-shadow:0 0 22px -6px rgba(184,242,26,.5)}
+
+/* Page head (service page) */
+.phead{padding:150px clamp(16px,5vw,64px) 20px}
+.phead .wrap h1{margin-top:0;max-width:16ch}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.7rem;margin-top:2.2rem;font:inherit;font-weight:500;font-size:1rem;color:#050700;background:var(--lime);padding:16px 32px;border-radius:14px;box-shadow:0 10px 40px -10px rgba(184,242,26,.55);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 0 6px rgba(184,242,26,.14),0 14px 50px -8px rgba(184,242,26,.7)}
+.wa-ico svg{width:22px;height:22px;display:block}
+
+/* Sections */
+section{padding:clamp(56px,10vw,120px) clamp(16px,5vw,64px)}
+.wrap{max-width:1160px;margin:0 auto}
+h2{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:400;margin-bottom:2.2rem;max-width:20ch;line-height:1.2}
+
+/* Vehicle cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;justify-content:space-between;min-height:190px;padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,var(--panel),#070906);transition:border-color .25s,transform .25s}
+.card:hover{border-color:var(--lime);transform:translateY(-3px)}
+.card .oo{height:22px;width:44px;opacity:.55;transition:opacity .25s}
+.card:hover .oo{opacity:1}
+.card h3{font-size:1.5rem;font-weight:500;letter-spacing:.02em;margin-top:2.2rem}
+.card p{color:var(--mute);font-size:.92rem;margin-top:.3rem}
+.card.wide{grid-column:span 2;background:linear-gradient(160deg,#10160a,#070906)}
+@media(max-width:620px){.card.wide{grid-column:auto}}
+
+/* Service rows */
+.srow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:14px 56px;padding:38px 0;border-top:1px solid var(--line);align-items:start}
+.srow:last-child{border-bottom:1px solid var(--line)}
+.srow h3{display:flex;align-items:center;gap:16px;font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:500}
+.srow h3 .oo{height:20px;width:40px;flex:none}
+.srow p{color:var(--mute);max-width:46ch}
+.srow .req{display:inline-block;margin-top:.8rem;color:var(--lime);font-size:.85rem}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.2rem}
+.chip{border:1px solid var(--line);border-radius:999px;padding:9px 18px;background:var(--panel);font-size:.93rem;transition:border-color .2s}
+.chip:hover{border-color:var(--lime)}
+@media(max-width:760px){.srow{grid-template-columns:1fr}}
+
+/* CTA */
+.book{text-align:center;border-top:1px solid var(--line);background:radial-gradient(50% 80% at 50% 100%,rgba(184,242,26,.1),transparent 70%)}
+.book h2{margin-inline:auto}
+.book p{color:var(--mute);max-width:32rem;margin:-1rem auto 0}
+.book .btn{margin-top:2rem}
+
+footer{padding:34px clamp(16px,5vw,64px) 40px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:center;color:var(--mute);font-size:.88rem}
+footer .logo{font-size:1.2rem}
+footer address{font-style:normal}
+footer a:hover{color:var(--lime)}
+
+/* WhatsApp side button */
+.fab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:30;display:flex;align-items:center;gap:10px;padding:14px 16px 14px 18px;background:#25d366;color:#031a0b;font-weight:500;font-size:.9rem;border-radius:16px 0 0 16px;box-shadow:0 8px 30px rgba(37,211,102,.35);transition:padding .25s,box-shadow .25s}
+.fab:hover{padding-right:24px;box-shadow:0 8px 40px rgba(37,211,102,.6)}
+@media(max-width:620px){.fab span:not(.wa-ico){display:none}.fab{padding:14px;top:auto;bottom:20px;right:16px;transform:none;border-radius:50%}.fab:hover{padding:14px}}
+@media(max-width:480px){header .logo{font-size:1.15rem}.menu{font-size:.8rem;gap:10px}.right{gap:10px}}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.panel[hidden]{display:none}
+
+/* Card photos */
+.card{position:relative;overflow:hidden;isolation:isolate;min-height:270px}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .7s ease}
+.card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,4,3,.45) 0%,rgba(3,4,3,.05) 38%,rgba(3,4,3,.92) 100%)}
+.card:hover img{transform:scale(1.05)}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card .model{font-size:.76rem;color:var(--text);background:rgba(3,4,3,.6);backdrop-filter:blur(6px);border:1px solid var(--line);padding:4px 11px;border-radius:999px;white-space:nowrap}
+.card .bot h3{margin-top:0}
+.card .bot p{color:#cfd6c9}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header>
+  <a class="logo" href="#fahrzeuge" data-tab="home" aria-label="DRIVOO">DRIV<svg class="oo" viewBox="0 0 120 60" aria-hidden="true"><circle cx="32" cy="30" r="24"/><circle cx="88" cy="30" r="24"/></svg></a>
+  <div class="right">
+    <nav class="menu">
+      <a href="#fahrzeuge" data-tab="home" data-i18n="navCars"></a>
+      <a href="#service" data-tab="service" data-i18n="navService"></a>
+    </nav>
+    <div class="lang">
+      <button class="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Language">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+        <span id="langCur">DE</span>
+        <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <ul class="lang-menu" role="listbox" hidden>
+        <li><button data-lang="de" role="option">Deutsch <small>DE</small></button></li>
+        <li><button data-lang="en" role="option">English <small>EN</small></button></li>
+        <li><button data-lang="fr" role="option">Français <small>FR</small></button></li>
+        <li><button data-lang="it" role="option">Italiano <small>IT</small></button></li>
+        <li><button data-lang="hu" role="option">Magyar <small>HU</small></button></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="panel" id="fahrzeuge">
+<div class="hero">
+    <div class="logo" role="img" aria-label="DRIVOO">DRIV<svg class="oo" viewBox="0 0 120 60" aria-hidden="true"><circle cx="32" cy="30" r="24"/><circle cx="88" cy="30" r="24"/></svg></div>
+    <p class="claim">ALWAYS IN MOTION</p>
+    <h1><span data-i18n="h1a"></span><br><em data-i18n="h1b"></em></h1>
+    <p class="sub" data-i18n="sub"></p>
+    <span class="price" data-i18n="price"></span>
+    <a class="btn wa-link" href="#" target="_blank" rel="noopener"><span class="wa-ico"></span><span data-i18n="book"></span></a>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i18n="catTitle"></h2>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="wrap">
+      <h2 data-i18n="ctaTitle"></h2>
+      <p data-i18n="ctaSub"></p>
+      <a class="btn wa-link" href="#" target="_blank" rel="noopener"><span class="wa-ico"></span><span data-i18n="book"></span></a>
+    </div>
+  </section>
+</div>
+<div class="panel" id="service" hidden>
+<div class="phead">
+    <div class="wrap">
+      <h1 data-i18n="sTitle"></h1>
+      <p class="sub" data-i18n="sSub"></p>
+    </div>
+  </div>
+
+  <section style="padding-top:clamp(32px,6vw,64px)">
+    <div class="wrap" id="sgrid"></div>
+  </section>
+
+  <section class="book">
+    <div class="wrap">
+      <h2 data-i18n="sCtaTitle"></h2>
+      <p data-i18n="sCtaSub"></p>
+      <a class="btn wa-link" href="#" target="_blank" rel="noopener"><span class="wa-ico"></span><span data-i18n="ask"></span></a>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <span class="logo">DRIV<svg class="oo" viewBox="0 0 120 60" aria-hidden="true"><circle cx="32" cy="30" r="24"/><circle cx="88" cy="30" r="24"/></svg></span>
+  <address>DRIVOO Mobility AG · Uferstrasse 70 · 4057 Basel · Switzerland</address>
+  <a href="https://drivooo.ch">drivooo.ch</a>
+</footer>
+
+<a class="fab wa-link" href="#" target="_blank" rel="noopener" data-i18n-aria="waAria"><span class="wa-ico"></span><span>WhatsApp</span></a>
+
+<script>
+/* ===== HIER ANPASSEN / ITT ÁTÍRNI: WhatsApp Business Nummer (Ländercode ohne + und ohne Leerzeichen) ===== */
+var WA_NUMBER = "41762356917";
+
+var CATS = ["suv","cabrio","van","small","wagon","luxury","sport"];
+var SERV = ["deliver","airport","insure","acc"];
+/* Fotos: images/<Dateiname>.jpg  |  Bildunterschrift (Modell) */
+var MODEL = {suv:["suv","Mercedes G-Klasse"],cabrio:["cabrio","BMW 4er Cabrio"],van:["van","Mercedes V-Klasse"],small:["kleinwagen","SEAT Ibiza Cupra"],wagon:["kombi","Audi A6 Avant"],luxury:["luxus","Mercedes S-Klasse"],sport:["sport","Lamborghini Huracán"]};
+
+var T = {
+de:{name:"Deutsch",h1a:"Dein Auto.",h1b:"Deine Freiheit.",sub:"Mietwagen in der ganzen Schweiz – schnell gebucht, direkt per WhatsApp.",
+  price:"Mieten ab CHF 50 pro Tag",book:"Jetzt Fahrzeug buchen",ask:"Jetzt anfragen",navCars:"Fahrzeuge",navService:"Service",
+  catTitle:"Unsere Fahrzeugklassen",ctaTitle:"Wann brauchst du dein Auto?",ctaSub:"Schreib uns kurz Datum und Fahrzeugklasse. Wir antworten per WhatsApp.",
+  waAria:"Per WhatsApp schreiben",msg:"Guten Tag DRIVOO. Ich möchte ein Auto mieten. Welche Fahrzeuge sind aktuell verfügbar?",
+  msgS:"Hallo DRIVOO, ich interessiere mich für euren Service (Lieferung, Transfer, Versicherung oder Zubehör).",
+  sTitle:"Mehr als nur ein Auto.",sSub:"Wir bringen, holen, versichern und rüsten aus – genau so, wie du es brauchst.",onReq:"Preis auf Anfrage",
+  sCtaTitle:"Welchen Service brauchst du?",sCtaSub:"Schreib uns, was du brauchst. Wir stellen dir ein passendes Angebot zusammen.",
+  suv:["SUV","Platz und Power für jedes Gelände."],cabrio:["Cabrio","Offen fahren, Sonne spüren."],van:["Van","Raum für Gruppen und Gepäck."],
+  small:["Kleinwagen","Wendig in der Stadt, sparsam unterwegs."],wagon:["Kombi","Viel Stauraum für Familie und Ferien."],
+  luxury:["Luxus","Komfort und Eleganz auf höchstem Niveau."],sport:["Sportwagen","Pure Leistung für besondere Momente."],
+  deliver:["Lieferung & Abholung","Wir bringen das Auto an den Ort deiner Wahl und holen es nach der Miete wieder ab: zu Hause, im Büro oder im Hotel."],
+  airport:["Flughafen-Transfer","Wir holen dich am Flughafen ab oder übergeben das Fahrzeug direkt dort. Ohne Umwege und ohne Warten am Schalter."],
+  insure:["Zusatzversicherung","Mehr Schutz für unterwegs: Mit der Extra-Versicherung reduzierst du deinen Selbstbehalt und fährst entspannter."],
+  acc:["Autozubehör","Alles, was die Reise einfacher macht. Gleich bei der Buchung mitbestellen."],
+  accList:["Fahrradträger","Kindersitz","Babyschale","Dachbox","Skiträger","Schneeketten","Navigationsgerät"]},
+en:{name:"English",h1a:"Your car.",h1b:"Your freedom.",sub:"Rental cars across Switzerland – booked fast, directly via WhatsApp.",
+  price:"Rent from CHF 50 per day",book:"Book a car now",ask:"Request now",navCars:"Cars",navService:"Services",
+  catTitle:"Our vehicle classes",ctaTitle:"When do you need your car?",ctaSub:"Send us the date and vehicle class. We reply on WhatsApp.",
+  waAria:"Message us on WhatsApp",msg:"Good day DRIVOO. I would like to rent a car. Which cars do you currently have available?",
+  msgS:"Hello DRIVOO, I am interested in your services (delivery, transfer, insurance or accessories).",
+  sTitle:"More than just a car.",sSub:"We deliver, collect, insure and equip – exactly the way you need it.",onReq:"Price on request",
+  sCtaTitle:"Which service do you need?",sCtaSub:"Tell us what you need and we will put together a suitable offer.",
+  suv:["SUV","Space and power for any terrain."],cabrio:["Convertible","Drive open, feel the sun."],van:["Van","Room for groups and luggage."],
+  small:["Compact car","Nimble in the city, economical on the road."],wagon:["Estate","Plenty of space for family and holidays."],
+  luxury:["Luxury","Comfort and elegance at the highest level."],sport:["Sports car","Pure performance for special moments."],
+  deliver:["Delivery & collection","We bring the car to the place of your choice and collect it again after your rental: at home, at the office or at your hotel."],
+  airport:["Airport transfer","We pick you up at the airport or hand over the car right there. No detours, no waiting at a counter."],
+  insure:["Extra insurance","More protection on the road: with the extra cover you reduce your excess and drive with peace of mind."],
+  acc:["Car accessories","Everything that makes the trip easier. Add it right when you book."],
+  accList:["Bike rack","Child seat","Baby seat","Roof box","Ski rack","Snow chains","Navigation device"]},
+fr:{name:"Français",h1a:"Ta voiture.",h1b:"Ta liberté.",sub:"Location de voitures dans toute la Suisse – réservation rapide, directement par WhatsApp.",
+  price:"Location dès CHF 50 par jour",book:"Réserver un véhicule",ask:"Demander maintenant",navCars:"Véhicules",navService:"Services",
+  catTitle:"Nos catégories de véhicules",ctaTitle:"Quand as-tu besoin de ta voiture ?",ctaSub:"Envoie-nous la date et la catégorie. Nous répondons sur WhatsApp.",
+  waAria:"Écrire sur WhatsApp",msg:"Bonjour DRIVOO. Je souhaite louer une voiture. Quels véhicules avez-vous actuellement de disponibles ?",
+  msgS:"Bonjour DRIVOO, je m'intéresse à vos services (livraison, transfert, assurance ou accessoires).",
+  sTitle:"Bien plus qu'une voiture.",sSub:"Nous livrons, récupérons, assurons et équipons – exactement comme il te faut.",onReq:"Prix sur demande",
+  sCtaTitle:"De quel service as-tu besoin ?",sCtaSub:"Dis-nous ce qu'il te faut et nous préparons une offre adaptée.",
+  suv:["SUV","De l'espace et de la puissance pour tous les terrains."],cabrio:["Cabriolet","Rouler à ciel ouvert, sentir le soleil."],van:["Van","De la place pour les groupes et les bagages."],
+  small:["Citadine","Agile en ville, économique sur la route."],wagon:["Break","Beaucoup de coffre pour la famille et les vacances."],
+  luxury:["Luxe","Confort et élégance au plus haut niveau."],sport:["Voiture de sport","Performance pure pour les moments d'exception."],
+  deliver:["Livraison et récupération","Nous amenons la voiture où tu veux et la récupérons après la location : à la maison, au bureau ou à l'hôtel."],
+  airport:["Transfert aéroport","Nous venons te chercher à l'aéroport ou te remettons le véhicule sur place. Sans détour, sans attente au comptoir."],
+  insure:["Assurance complémentaire","Plus de protection en route : avec l'assurance supplémentaire, tu réduis ta franchise et roules l'esprit tranquille."],
+  acc:["Accessoires auto","Tout ce qui facilite le voyage. À ajouter dès la réservation."],
+  accList:["Porte-vélos","Siège enfant","Siège bébé","Coffre de toit","Porte-skis","Chaînes à neige","Navigation GPS"]},
+it:{name:"Italiano",h1a:"La tua auto.",h1b:"La tua libertà.",sub:"Auto a noleggio in tutta la Svizzera – prenotazione rapida, direttamente su WhatsApp.",
+  price:"Noleggio da CHF 50 al giorno",book:"Prenota ora un'auto",ask:"Richiedi ora",navCars:"Veicoli",navService:"Servizi",
+  catTitle:"Le nostre categorie di veicoli",ctaTitle:"Quando ti serve l'auto?",ctaSub:"Scrivici la data e la categoria. Rispondiamo su WhatsApp.",
+  waAria:"Scrivici su WhatsApp",msg:"Buongiorno DRIVOO. Vorrei noleggiare un'auto. Quali veicoli avete attualmente disponibili?",
+  msgS:"Buongiorno DRIVOO, mi interessano i vostri servizi (consegna, transfer, assicurazione o accessori).",
+  sTitle:"Più di una semplice auto.",sSub:"Consegniamo, ritiriamo, assicuriamo ed equipaggiamo – esattamente come ti serve.",onReq:"Prezzo su richiesta",
+  sCtaTitle:"Di quale servizio hai bisogno?",sCtaSub:"Scrivici cosa ti serve e prepareremo un'offerta su misura.",
+  suv:["SUV","Spazio e potenza per ogni terreno."],cabrio:["Cabrio","Guidare a cielo aperto, sentire il sole."],van:["Van","Spazio per gruppi e bagagli."],
+  small:["Utilitaria","Agile in città, economica su strada."],wagon:["Station wagon","Tanto spazio per famiglia e vacanze."],
+  luxury:["Lusso","Comfort ed eleganza al massimo livello."],sport:["Auto sportiva","Prestazioni pure per momenti speciali."],
+  deliver:["Consegna e ritiro","Portiamo l'auto dove vuoi e la ritiriamo a fine noleggio: a casa, in ufficio o in hotel."],
+  airport:["Transfer aeroporto","Ti veniamo a prendere in aeroporto o consegniamo l'auto direttamente lì. Senza giri e senza code al banco."],
+  insure:["Assicurazione extra","Più protezione in viaggio: con la copertura extra riduci la franchigia e guidi più sereno."],
+  acc:["Accessori auto","Tutto ciò che rende il viaggio più facile. Aggiungili già in fase di prenotazione."],
+  accList:["Portabici","Seggiolino bambini","Navicella neonati","Box da tetto","Portasci","Catene da neve","Navigatore"]},
+hu:{name:"Magyar",h1a:"Az autód.",h1b:"A szabadságod.",sub:"Autóbérlés egész Svájcban – gyors foglalás, közvetlenül WhatsAppon.",
+  price:"Bérlés napi 50 CHF-től",book:"Autó foglalása",ask:"Ajánlatkérés",navCars:"Autók",navService:"Szerviz",
+  catTitle:"Autókategóriáink",ctaTitle:"Mikorra kell az autó?",ctaSub:"Írd meg a dátumot és a kategóriát. WhatsAppon válaszolunk.",
+  waAria:"Írj nekünk WhatsAppon",msg:"Jó napot DRIVOO. Autót szeretnék bérelni, milyen szabad autóik vannak jelenleg?",
+  msgS:"Üdvözlöm a DRIVOO-t, érdeklődöm a szolgáltatásaik iránt (kiszállítás, transzfer, biztosítás vagy tartozékok).",
+  sTitle:"Több mint egy autó.",sSub:"Kiszállítjuk, elhozzuk, biztosítjuk és felszereljük – pont úgy, ahogy neked kell.",onReq:"Ár érdeklődésre",
+  sCtaTitle:"Milyen szolgáltatásra van szükséged?",sCtaSub:"Írd meg, mire van szükséged, és személyre szabott ajánlatot adunk.",
+  suv:["SUV","Hely és erő minden terepre."],cabrio:["Kabrió","Nyitott tető, napfény az arcodon."],van:["Van","Hely csoportoknak és csomagoknak."],
+  small:["Kisautó","Fürge a városban, takarékos az úton."],wagon:["Kombi","Rengeteg csomagtér családnak és nyaraláshoz."],
+  luxury:["Luxus","Kényelem és elegancia a legmagasabb szinten."],sport:["Sportautó","Tiszta teljesítmény különleges pillanatokra."],
+  deliver:["Kiszállítás és elvitel","Az autót a választott helyszínre visszük, a bérlés végén onnan is visszavesszük: otthon, irodában vagy a szállodánál."],
+  airport:["Reptéri transzfer","A reptéren várunk, vagy ott adjuk át az autót. Kerülők és sorban állás nélkül."],
+  insure:["Extra biztosítás","Nagyobb biztonság útközben: az extra biztosítással csökken az önrészed, így nyugodtabban vezetsz."],
+  acc:["Autós tartozékok","Minden, ami megkönnyíti az utat. Foglaláskor azonnal kérheted."],
+  accList:["Kerékpártartó","Gyerekülés","Babahordozó","Tetőbox","Síléctartó","Hólánc","Navigáció"]}
+};
+
+var OO = '<svg class="oo" viewBox="0 0 120 60" aria-hidden="true"><circle cx="32" cy="30" r="24"/><circle cx="88" cy="30" r="24"/></svg>';
+var WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.2 14.8l-.4-.2-2.6.7.7-2.5-.2-.4A8 8 0 0 1 12 4zM8.6 7.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.900.8 3.400.7.600-.1 1.700-.7 2-1.400.2-.7.2-1.200.2-1.400l-.5-.3-1.700-.8c-.2-.1-.4-.1-.6.100l-.8 1c-.1.200-.3.200-.5.100-.3-.1-1.100-.4-2-1.200-.8-.7-1.300-1.500-1.400-1.800-.2-.3 0-.4.100-.5l.4-.5.3-.4v-.5l-.8-1.900c-.2-.5-.4-.4-.6-.4z"/></svg>';
+
+var PAGE = "home", CUR = "de";
+
+function setLang(l){
+  if(!T[l]) l = "de";
+  var d = T[l];
+  CUR = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-i18n]").forEach(function(el){ el.textContent = d[el.dataset.i18n]; });
+  document.querySelectorAll("[data-i18n-aria]").forEach(function(el){ el.setAttribute("aria-label", d[el.dataset.i18nAria]); });
+
+  var g = document.getElementById("grid");
+  if(g) g.innerHTML = CATS.map(function(k){
+    var wide = (k === "luxury" || k === "sport") ? " wide" : "";
+    var m = MODEL[k];
+    return '<div class="card' + wide + '"><img src="images/' + m[0] + '.jpg" alt="' + m[1] + '" loading="lazy" onerror="this.remove()"><div class="top">' + OO + '<span class="model">' + m[1] + '</span></div><div class="bot"><h3>' + d[k][0] + '</h3><p>' + d[k][1] + '</p></div></div>';
+  }).join("");
+
+  var s = document.getElementById("sgrid");
+  if(s) s.innerHTML = SERV.map(function(k){
+    var extra = (k === "acc")
+      ? '<div class="chips">' + d.accList.map(function(c){ return '<span class="chip">' + c + '</span>'; }).join("") + '</div>'
+      : "";
+    return '<div class="srow"><h3>' + OO + d[k][0] + '</h3><div><p>' + d[k][1] + '</p>' + extra + '<span class="req">' + d.onReq + '</span></div></div>';
+  }).join("");
+
+  var url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(PAGE === "service" ? d.msgS : d.msg);
+  document.querySelectorAll(".wa-link").forEach(function(a){ a.href = url; });
+  document.querySelectorAll(".wa-ico").forEach(function(i){ i.innerHTML = WA_ICON; });
+
+  document.getElementById("langCur").textContent = l.toUpperCase();
+  document.querySelectorAll(".lang-menu button").forEach(function(b){ b.setAttribute("aria-selected", b.dataset.lang === l); });
+  try{ localStorage.setItem("drivoo-lang", l); }catch(e){}
+}
+
+/* Language dropdown */
+var btn = document.querySelector(".lang-btn"), menu = document.querySelector(".lang-menu");
+function toggleMenu(open){ menu.hidden = !open; btn.setAttribute("aria-expanded", open); }
+btn.addEventListener("click", function(e){ e.stopPropagation(); toggleMenu(menu.hidden); });
+menu.addEventListener("click", function(e){
+  var b = e.target.closest("button[data-lang]");
+  if(b){ setLang(b.dataset.lang); toggleMenu(false); btn.focus(); }
+});
+document.addEventListener("click", function(){ toggleMenu(false); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape"){ toggleMenu(false); } });
+
+/* Tabs: Fahrzeuge (default) and Service */
+function showTab(tab){
+  PAGE = (tab === "service") ? "service" : "home";
+  document.getElementById("fahrzeuge").hidden = PAGE !== "home";
+  document.getElementById("service").hidden = PAGE !== "service";
+  document.querySelectorAll(".menu a").forEach(function(a){
+    if(a.dataset.tab === PAGE) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+  });
+  window.scrollTo(0,0);
+  setLang(CUR);
+  if(PAGE === "home" && window.drivooBurst) window.drivooBurst(1850);
+}
+function tabFromHash(){ return location.hash === "#service" ? "service" : "home"; }
+document.querySelectorAll("a[data-tab]").forEach(function(a){
+  a.addEventListener("click", function(e){
+    e.preventDefault();
+    showTab(a.dataset.tab);
+    try{ history.replaceState(null, "", a.dataset.tab === "service" ? "#service" : "#fahrzeuge"); }catch(err){}
+  });
+});
+window.addEventListener("hashchange", function(){ showTab(tabFromHash()); });
+
+/* Start language: saved choice, then German */
+var start = null;
+try{ start = localStorage.getItem("drivoo-lang"); }catch(e){}
+CUR = T[start] ? start : "de";
+showTab(tabFromHash());
+
+/* Hintergrund: Lichtstreifen, die zufällig über die Seite wandern (der erste startet am OO) */
+(function(){
+  var cv = document.getElementById("bg");
+  if(!cv || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+  var cx = cv.getContext("2d"), W, H, S = [], last = performance.now();
+  /* Textbereiche: Dort werden die Lichtstreifen fast unsichtbar, damit nichts das Lesen stört */
+  var SEL = ".hero h1,.hero .sub,.claim,.price,.btn,h2,.book p,.card .bot,.srow h3,.srow p,.chip,.phead h1,.phead .sub,footer address";
+  var R = [], dirty = true, lastC = 0;
+  function collect(){
+    R = [];
+    document.querySelectorAll(SEL).forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.width && r.bottom > -20 && r.top < H + 20) R.push([r.left - 16, r.top - 12, r.right + 16, r.bottom + 12]);
+    });
+    dirty = false;
+  }
+  function inText(x, y){
+    for(var i = 0; i < R.length; i++){ var r = R[i]; if(x > r[0] && x < r[2] && y > r[1] && y < r[3]) return true; }
+    return false;
+  }
+  window.addEventListener("scroll", function(){ dirty = true; }, {passive:true});
+  function size(){
+    var d = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function rnd(a, b){ return a + Math.random() * (b - a); }
+  function make(){
+    var s = {pts:[], age:0, wait:rnd(800,9000), len:rnd(45,95), w:rnd(1.2,2.2), max:rnd(.22,.45),
+             per:rnd(1400,3600), ph:rnd(0,6.28), amp:rnd(.012,.03), a:rnd(0,6.28), x:rnd(0,W), y:rnd(0,H), f:1};
+    s.vt = s.v = rnd(1.5,3);
+    return s;
+  }
+
+  var rings = [];
+  function burst(delay){
+    var o = document.querySelector(".hero .oo");
+    if(!o || o.offsetParent === null) return;
+    var r = o.getBoundingClientRect(), ox = r.left + r.width / 2, oy = r.top + r.height / 2;
+    var n = window.innerWidth < 700 ? 5 : 7, base = rnd(0, 6.283);
+    for(var i = 0; i < n; i++){
+      var q = make(), a = base + i * 6.283 / n + rnd(-.25, .25);
+      q.x = ox + Math.cos(a) * r.width * .3; q.y = oy + Math.sin(a) * r.height * .3; q.a = a;
+      q.v = rnd(7, 10); q.vt = rnd(2, 3.2); q.wait = delay + rnd(0, 120);
+      q.len = rnd(70, 100); q.w = rnd(2, 2.8); q.max = rnd(.6, .9); q.age = 1800; q.pts = [];
+      S.push(q);
+    }
+    rings.push({x:ox, y:oy, r0:r.width * .45, wait:delay, age:0});
+    while(S.length > 12) S.shift();
+  }
+  window.drivooBurst = burst;
+  function turnTo(a, b){ var d = b - a; while(d > Math.PI) d -= 6.283; while(d < -Math.PI) d += 6.283; return d; }
+  function frame(now){
+    var ms = Math.min(now - last, 60), dt = ms / 16.67; last = now;
+    if(dirty || now - lastC > 300){ collect(); lastC = now; }
+    cx.clearRect(0, 0, W, H);
+    cx.globalCompositeOperation = "lighter";
+    cx.lineCap = "round";
+    rings = rings.filter(function(g){
+      if(g.wait > 0){ g.wait -= ms; return true; }
+      g.age += ms;
+      var p = g.age / 1000; if(p >= 1) return false;
+      var e = 1 - Math.pow(1 - p, 3);
+      var gr = cx.createRadialGradient(g.x, g.y, 0, g.x, g.y, 160);
+      gr.addColorStop(0, "rgba(184,242,26," + (.35 * (1 - p) * (1 - p)).toFixed(3) + ")"); gr.addColorStop(1, "rgba(184,242,26,0)");
+      cx.fillStyle = gr; cx.fillRect(g.x - 160, g.y - 160, 320, 320);
+      cx.strokeStyle = "rgba(184,242,26," + (.6 * (1 - p)).toFixed(3) + ")"; cx.lineWidth = 1 + 2 * (1 - p);
+      cx.beginPath(); cx.arc(g.x, g.y, g.r0 + e * 300, 0, 6.283); cx.stroke();
+      return true;
+    });
+    S.forEach(function(s){
+      if(s.wait > 0){ s.wait -= ms; return; }
+      s.age += ms;
+      s.a += Math.sin(now / s.per + s.ph) * s.amp * dt;
+      var m = 110;
+      if(s.x < m || s.x > W - m || s.y < m || s.y > H - m){
+        s.a += turnTo(s.a, Math.atan2(H / 2 - s.y, W / 2 - s.x)) * .05 * dt;
+      }
+      s.v += (s.vt - s.v) * .02 * dt;
+      s.x += Math.cos(s.a) * s.v * dt; s.y += Math.sin(s.a) * s.v * dt;
+      s.f += ((inText(s.x, s.y) ? .05 : 1) - s.f) * .2 * dt;
+      s.pts.push({x:s.x, y:s.y, f:s.f});
+      while(s.pts.length > s.len) s.pts.shift();
+      var n = s.pts.length, k = Math.min(1, s.age / 1800) * s.max;
+      for(var i = 1; i < n; i++){
+        var t = i / n;
+        cx.strokeStyle = "rgba(184,242,26," + (Math.pow(t, 1.6) * k * s.pts[i].f).toFixed(3) + ")";
+        cx.lineWidth = s.w * (.35 + .65 * t);
+        cx.beginPath(); cx.moveTo(s.pts[i-1].x, s.pts[i-1].y); cx.lineTo(s.pts[i].x, s.pts[i].y); cx.stroke();
+      }
+      cx.shadowColor = "#b8f21a"; cx.shadowBlur = 14 * s.f;
+      cx.fillStyle = "rgba(220,255,120," + (k * 1.1 * s.f).toFixed(3) + ")";
+      cx.beginPath(); cx.arc(s.x, s.y, s.w * .9, 0, 6.283); cx.fill();
+      cx.shadowBlur = 0;
+    });
+    requestAnimationFrame(frame);
+  }
+  size();
+  window.addEventListener("resize", size);
+  for(var i = 0; i < (window.innerWidth < 700 ? 2 : 3); i++) S.push(make());
+  burst(1850);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
